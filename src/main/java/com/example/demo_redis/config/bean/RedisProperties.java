@@ -37,9 +37,7 @@ public class RedisProperties {
 
     private int pgtiouExpiryInSeconds = 120;
 
-    private String sessionKeyNamespace;
 
-    private int sessionExpiryInSeconds = 3600;
 
     @PostConstruct
     public void setupAndDebug() {
@@ -68,8 +66,6 @@ public class RedisProperties {
                 ", databaseIndex=" + databaseIndex +
                 ", pgtiouPrefix='" + pgtiouPrefix + '\'' +
                 ", pgtiouExpiryInSeconds=" + pgtiouExpiryInSeconds +
-                ", sessionKeyNamespace='" + sessionKeyNamespace + '\'' +
-                ", sessionExpiryInSeconds=" + sessionExpiryInSeconds +
                 '}';
     }
 }
