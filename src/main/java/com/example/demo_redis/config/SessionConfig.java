@@ -20,20 +20,13 @@ import org.springframework.session.data.redis.config.annotation.web.http.RedisHt
 
 @Slf4j
 @Configuration
-@EnableRedisHttpSession
+@EnableRedisHttpSession(redisNamespace = "${spring.redis.namespace}")
 public class SessionConfig {
 
     @Autowired
     private RedisProperties redisProperties;
 
-    @Bean
-    @Primary
-    public RedisHttpSessionConfiguration redisHttpSessionConfiguration() {
-        RedisHttpSessionConfiguration config = new RedisHttpSessionConfiguration();
-        config.setRedisNamespace(redisProperties.getSessionKeyNamespace());
-        config.setMaxInactiveIntervalInSeconds(redisProperties.getSessionExpiryInSeconds());
-        return config;
-    }
+
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
