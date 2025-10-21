@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.session.data.redis.RedisIndexedSessionRepository;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
 
@@ -27,6 +28,11 @@ public class SessionConfig {
     private RedisProperties redisProperties;
 
 
+    @Bean
+    // Fix exception at launch where redis would require an unnecessary permission
+    public static ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
+    }
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
