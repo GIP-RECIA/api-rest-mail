@@ -117,6 +117,12 @@
                 <spring.profiles.active>prod</spring.profiles.active>
             </properties>
         </profile>
+        <profile>
+            <id>mock</id>
+            <properties>
+                <spring.profiles.active>mock</spring.profiles.active>
+            </properties>
+        </profile>
     </profiles>
 
 	<build>
