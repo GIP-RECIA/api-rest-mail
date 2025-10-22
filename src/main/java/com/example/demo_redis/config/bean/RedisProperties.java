@@ -38,6 +38,9 @@ public class RedisProperties {
     private int pgtiouExpiryInSeconds = 120;
 
 
+    private String responseCacheName = "";
+
+    private int responseCacheTtlInSeconds = 360;
 
     @PostConstruct
     public void setupAndDebug() {
@@ -66,6 +69,8 @@ public class RedisProperties {
                 ", databaseIndex=" + databaseIndex +
                 ", pgtiouPrefix='" + pgtiouPrefix + '\'' +
                 ", pgtiouExpiryInSeconds=" + pgtiouExpiryInSeconds +
+                ", responseCacheName='" + responseCacheName + '\'' +
+                ", responseCacheTtlInSeconds=" + responseCacheTtlInSeconds +
                 '}';
     }
 }
