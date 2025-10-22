@@ -36,9 +36,6 @@ import javax.annotation.PostConstruct;
 public class AppConfProperties {
 
     @NotNull
-    private String jsonFolder;
-
-    @NotNull
     private String casServiceId;
 
     @NotNull
