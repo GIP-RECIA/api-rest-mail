@@ -51,12 +51,12 @@ public class ProxyGrantingTicketRedisImpl implements ProxyGrantingTicketStorage 
         log.warn("Redis does not require cleanup for PGT, entries have ttl in Redis");
     }
 
-    public void saveInRedis(String userId, String test) {
-        redisTemplate.opsForValue().set(userId, test, redisProperties.getPgtiouExpiryInSeconds(), TimeUnit.SECONDS);
+    public void saveInRedis(String Iou, String test) {
+        redisTemplate.opsForValue().set(String.format("%1$s:%2$s",  redisProperties.getPgtiouPrefix(), Iou), test, redisProperties.getPgtiouExpiryInSeconds(), TimeUnit.SECONDS);
     }
 
-    public String getFromRedis(String a){
-        return redisTemplate.opsForValue().getAndDelete(a);
+    public String getFromRedis(String Iou){
+        return redisTemplate.opsForValue().getAndDelete(String.format("%1$s:%2$s",  redisProperties.getPgtiouPrefix(), Iou));
     }
 }
 
