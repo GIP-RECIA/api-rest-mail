@@ -3,6 +3,7 @@ package com.example.demo_redis.services.summary;
 import com.example.demo_redis.config.bean.RedisProperties;
 import com.example.demo_redis.config.custom.impl.UserCustomImplementation;
 import com.example.demo_redis.dto.MailFolderSummaryForWidget;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -23,7 +24,7 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
     @Autowired
     private RedisProperties redisProperties;
 
-    public final MailFolderSummaryForWidget getMailFolderSummaryForWidget() throws MessagingException {
+    public final MailFolderSummaryForWidget getMailFolderSummaryForWidget() throws MessagingException, JsonProcessingException {
 
         CasAuthenticationToken token = (CasAuthenticationToken) SecurityContextHolder
                 .getContext()
@@ -60,6 +61,6 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
         return result;
     }
 
-    protected abstract MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(CasAuthenticationToken token) throws MessagingException;
+    protected abstract MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(CasAuthenticationToken token) throws MessagingException, JsonProcessingException;
 
 }

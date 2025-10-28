@@ -34,7 +34,11 @@ public class ImapProperties {
 
     private String protocol;
 
+    private Map<String, String> escoDomainesConversion;
+
     private String folderName;
+
+    private String uriParamUserEtabGetEtabFromUai;
 
     @Override
     public String toString() {
@@ -46,7 +50,9 @@ public class ImapProperties {
                 ", timeout=" + timeout +
                 ", messageCountToRetrieve=" + messageCountToRetrieve +
                 ", protocol='" + protocol + '\'' +
+                ", escoDomainesConversion=" + escoDomainesConversion +
                 ", folderName='" + folderName + '\'' +
+                ", uriParamUserEtabGetEtabFromUai='" + uriParamUserEtabGetEtabFromUai + '\'' +
                 '}';
     }
 

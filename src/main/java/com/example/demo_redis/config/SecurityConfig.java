@@ -1,6 +1,7 @@
 package com.example.demo_redis.config;
 
 import com.example.demo_redis.config.bean.AppConfProperties;
+import com.example.demo_redis.config.custom.impl.UserCustomImplementation;
 import com.example.demo_redis.services.ProxyGrantingTicketRedisImpl;
 import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage;
 import org.jasig.cas.client.validation.Assertion;
@@ -38,6 +39,8 @@ public  class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
+                .authenticationProvider(casAuthenticationProvider(serviceProperties()))
+                .addFilter(casAuthenticationFilter(authenticationManager(casAuthenticationProvider(serviceProperties()))))
                 .exceptionHandling(e -> e.authenticationEntryPoint(casAuthenticationEntryPoint()))
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/test/redis").permitAll()
@@ -77,7 +80,7 @@ public  class SecurityConfig {
             Assertion assertion = token.getAssertion();
             Map<String, Object> attributes = assertion.getPrincipal().getAttributes();
             String username = assertion.getPrincipal().getName();
-            return new User(username, "", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            return new UserCustomImplementation(username, "", List.of(new SimpleGrantedAuthority("ROLE_USER")), attributes);
         };
     }
     @Bean
@@ -107,7 +110,6 @@ public  class SecurityConfig {
         filter.setFilterProcessesUrl(appConfProperties.getCasTicketCallback());
         filter.setProxyGrantingTicketStorage(pgtStorage());
         filter.setProxyReceptorUrl(appConfProperties.getCasProxyReceptorUrl());
-//		filter.setProxyReceptorUrl("/login/cas/proxyreceptor");
         return filter;
     }
 }

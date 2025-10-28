@@ -2,8 +2,11 @@ package com.example.demo_redis.services.summary;
 
 import com.example.demo_redis.config.bean.AppConfProperties;
 import com.example.demo_redis.config.bean.ImapProperties;
+import com.example.demo_redis.config.custom.impl.UserCustomImplementation;
 import com.example.demo_redis.dto.MailFolderSummaryForWidget;
 import com.example.demo_redis.dto.MessageSummaryForWidget;
+import com.example.demo_redis.services.imap.selector.ImapSelectorServiceFromUaiImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.mail.imap.IMAPFolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +34,21 @@ public class MailFolderSummaryServiceImapImplWithCache extends AbstractMailFolde
     @Autowired
     AppConfProperties appConfProperties;
 
+    @Autowired
+    ImapSelectorServiceFromUaiImpl imapSelectorServiceFromUai;
+
     @Override
-    protected MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(CasAuthenticationToken token) throws MessagingException {
+    protected MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(CasAuthenticationToken token) throws MessagingException, JsonProcessingException {
         return getFromImap(token);
     }
 
-
-    private MailFolderSummaryForWidget getFromImap(CasAuthenticationToken token) throws MessagingException {
+    private MailFolderSummaryForWidget getFromImap(CasAuthenticationToken token) throws MessagingException, JsonProcessingException {
 
         final String proxyTicket = token.getAssertion().getPrincipal().getProxyTicketFor(appConfProperties.getCasProxyTicketFor());
 
         String principalUsername = token.getAssertion().getPrincipal().toString();
 
-        IMAPFolder folder = getFolder(principalUsername, proxyTicket);
+        IMAPFolder folder = getFolder(principalUsername, proxyTicket, token);
         folder.open(Folder.READ_ONLY);
 
         int totalMessageCount = folder.getMessageCount();
@@ -70,11 +75,15 @@ public class MailFolderSummaryServiceImapImplWithCache extends AbstractMailFolde
         return new MailFolderSummaryForWidget(messageSummaryForWidgetList, imapProperties.getFolderName(), folder.getUnreadMessageCount());
     }
 
-    private IMAPFolder getFolder(String principal, String proxyTicket) throws MessagingException {
+    private IMAPFolder getFolder(String principal, String proxyTicket, CasAuthenticationToken token) throws MessagingException, JsonProcessingException {
+
+        UserCustomImplementation userDetails = (UserCustomImplementation) token.getUserDetails();
+        String uai = userDetails.getAttributes().get(appConfProperties.getCasAttributesKeyCurrentEtab()).toString();
+        String hostname = imapSelectorServiceFromUai.getIampHostName(uai);
 
         Session session = Session.getDefaultInstance(new Properties( ));
         Store store =  session.getStore(imapProperties.getProtocol());
-        store.connect(imapProperties.getHostname(), imapProperties.getPort(), principal, proxyTicket);
+        store.connect(hostname, imapProperties.getPort(), principal, proxyTicket);
 
         return (IMAPFolder) store.getFolder(imapProperties.getFolderName());
     }
