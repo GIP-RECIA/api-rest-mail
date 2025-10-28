@@ -36,7 +36,7 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
                 return summaryFromCache.get();
             }
         } catch (Exception e) {
-            log.error("Could not load cache for key {}", principal, e);
+            log.error("Could not load cache for key {}", cacheKey, e);
             cache.evict(cacheKey);
         }
 
@@ -45,8 +45,8 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
         try {
             cache.put(cacheKey, result);
         } catch (Exception e) {
-            log.error("Could not write cache for key {}, evicting key from cache, response will be returned", principal, e);
-            cache.evict(principal);
+            log.error("Could not write cache for key {}, evicting key from cache, response will be returned", cacheKey, e);
+            cache.evict(cacheKey);
         }
 
         return result;
