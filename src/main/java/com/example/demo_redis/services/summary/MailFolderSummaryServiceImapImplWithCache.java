@@ -16,7 +16,7 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.UIDFolder;
-import java.security.Principal;
+import org.springframework.security.cas.authentication.CasAuthenticationToken;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,20 +32,14 @@ public class MailFolderSummaryServiceImapImplWithCache extends AbstractMailFolde
     AppConfProperties appConfProperties;
 
     @Override
-    protected MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(Principal principal) throws MessagingException {
-        return getFromImap(principal);
+    protected MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(CasAuthenticationToken token) throws MessagingException {
+        return getFromImap(token);
     }
 
 
-    private MailFolderSummaryForWidget getFromImap(Principal principal) throws MessagingException {
-
-
-        final CasAuthenticationToken token = (CasAuthenticationToken) principal;
-
-        log.info("CasAuthenticationToken is {}", token);
+    private MailFolderSummaryForWidget getFromImap(CasAuthenticationToken token) throws MessagingException {
 
         final String proxyTicket = token.getAssertion().getPrincipal().getProxyTicketFor(appConfProperties.getCasProxyTicketFor());
-        log.info("Proxy ticket is {}", proxyTicket);
 
         String principalUsername = token.getAssertion().getPrincipal().toString();
 

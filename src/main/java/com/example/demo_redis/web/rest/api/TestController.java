@@ -52,7 +52,7 @@ public class TestController {
     }
 
     @GetMapping("/cas-secured")
-    public ResponseEntity<MailFolderSummaryForWidget> getOkIfCas(HttpServletRequest request, HttpServletResponse response)
+    public ResponseEntity<MailFolderSummaryForWidget> getOkIfCas()
             throws ServletException, IOException, MessagingException {
 
 
@@ -61,7 +61,7 @@ public class TestController {
         log.info("SecurityContextHolder.getContext().getAuthentication() is {}", SecurityContextHolder.getContext().getAuthentication());
         try {
              return ResponseEntity.ok(
-                 mailFolderSummaryService.getMailFolderSummaryForWidget(request.getUserPrincipal())
+                 mailFolderSummaryService.getMailFolderSummaryForWidget()
              );
 
         } catch (MessagingException e) {

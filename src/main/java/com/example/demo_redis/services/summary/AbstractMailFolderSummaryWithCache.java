@@ -1,11 +1,14 @@
 package com.example.demo_redis.services.summary;
 
 import com.example.demo_redis.config.bean.RedisProperties;
+import com.example.demo_redis.config.custom.impl.UserCustomImplementation;
 import com.example.demo_redis.dto.MailFolderSummaryForWidget;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.security.cas.authentication.CasAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.mail.MessagingException;
 import java.security.Principal;
@@ -20,10 +23,15 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
     @Autowired
     private RedisProperties redisProperties;
 
-    public final MailFolderSummaryForWidget getMailFolderSummaryForWidget(Principal principal) throws MessagingException {
+    public final MailFolderSummaryForWidget getMailFolderSummaryForWidget() throws MessagingException {
+
+        CasAuthenticationToken token = (CasAuthenticationToken) SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        String username = token.getName();
 
         Cache cache = cacheManager.getCache(redisProperties.getResponseCacheName());
-        String cacheKey = principal.getName();
+        String cacheKey = username;
 
         if (cache == null){
             throw new IllegalStateException(String.format("Can't get cache %s", redisProperties.getResponseCacheName()));
@@ -40,7 +48,7 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
             cache.evict(cacheKey);
         }
 
-        MailFolderSummaryForWidget result = getMailFolderSummaryForWidgetWithoutCache(principal);
+        MailFolderSummaryForWidget result = getMailFolderSummaryForWidgetWithoutCache(token);
 
         try {
             cache.put(cacheKey, result);
@@ -52,6 +60,6 @@ public abstract class AbstractMailFolderSummaryWithCache implements IMailFolderS
         return result;
     }
 
-    protected abstract MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(Principal principal) throws MessagingException;
+    protected abstract MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(CasAuthenticationToken token) throws MessagingException;
 
 }
