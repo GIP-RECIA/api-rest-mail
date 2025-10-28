@@ -2,15 +2,11 @@ package com.example.demo_redis.services.summary;
 
 import com.example.demo_redis.config.bean.AppConfProperties;
 import com.example.demo_redis.config.bean.ImapProperties;
-import com.example.demo_redis.config.bean.RedisProperties;
 import com.example.demo_redis.dto.MailFolderSummaryForWidget;
 import com.example.demo_redis.dto.MessageSummaryForWidget;
 import com.sun.mail.imap.IMAPFolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.security.cas.authentication.CasAuthenticationToken;
 
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
@@ -24,7 +20,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
 
 @Slf4j
@@ -34,13 +29,7 @@ public class MailFolderSummaryServiceImapImplWithCache extends AbstractMailFolde
     ImapProperties imapProperties;
 
     @Autowired
-    RedisProperties redisProperties;
-
-    @Autowired
     AppConfProperties appConfProperties;
-
-    @Autowired
-    CacheManager cacheManager;
 
     @Override
     protected MailFolderSummaryForWidget getMailFolderSummaryForWidgetWithoutCache(Principal principal) throws MessagingException {
