@@ -1,11 +1,14 @@
 package com.example.demo_redis.services.imap.selector;
 
 import com.example.demo_redis.config.bean.ImapProperties;
+import com.example.demo_redis.config.bean.RedisProperties;
 import com.example.demo_redis.pojo.ParamUserEtabResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static com.example.demo_redis.web.rest.api.TestController.getCurrentHttpRequest;
 
@@ -26,12 +30,41 @@ public class ImapSelectorServiceFromUaiImpl implements IImapSelectorService {
     @Autowired
     ImapProperties imapProperties;
 
+    @Autowired
+    RedisProperties redisProperties;
+
+    @Autowired
+    CacheManager cacheManager;
+
     @Override
     public String getIampHostName(String uai) throws JsonProcessingException {
+        Cache cache = cacheManager.getCache(redisProperties.getUaiToImapCacheName());
+        if (cache == null){
+            throw new IllegalStateException(String.format("Can't get cache %s", redisProperties.getUaiToImapCacheName()));
+        }
+        try {
+            Optional<String> hostnameFromCache = Optional.ofNullable(cache.get(uai, String.class));
+            if (hostnameFromCache.isPresent()) {
+                log.debug("Return hostname from cache");
+                return hostnameFromCache.get();
+            }
+        } catch (Exception e) {
+            log.error("Could not load cache for key {}", uai, e);
+            cache.evict(uai);
+        }
 
-        String value =getStringResponseFromParamUserEtab(uai);
+        String value = getStringResponseFromParamUserEtab(uai);
+        ParamUserEtabResponse paramUserEtabResponse = getDtoFromJson(value);
+        String[] escoDomaines = getEscoDomainesFromDto(paramUserEtabResponse);
+        String result = getIampHostnameFromEscoDomaines(escoDomaines);
 
-        return getIampHostnameFromEscoDomaines(getEscoDomainesFromDto(getDtoFromJson(value)));
+        try {
+            cache.put(uai, result);
+        } catch (Exception e) {
+            log.error("Could not write cache for key {}, evicting key from cache, response will be returned", uai, e);
+            cache.evict(uai);
+        }
+        return result;
     }
 
 

@@ -28,11 +28,18 @@ public class CacheConfig {
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
+        // responses cache
         cacheConfigurations.put(redisProperties.getResponseCacheName(), RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
                 )
                 .entryTtl(Duration.ofSeconds(redisProperties.getResponseCacheTtlInSeconds())));
+        // uai -> hostname cache
+        cacheConfigurations.put(redisProperties.getUaiToImapCacheName(), RedisCacheConfiguration.defaultCacheConfig()
+                .serializeValuesWith(
+                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
+                )
+                .entryTtl(Duration.ofSeconds(redisProperties.getUaiToImapCacheTtlInSeconds())));
         return RedisCacheManager.builder(connectionFactory)
                 .withInitialCacheConfigurations(cacheConfigurations)
                 .build();

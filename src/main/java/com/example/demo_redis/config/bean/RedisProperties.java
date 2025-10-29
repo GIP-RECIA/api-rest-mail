@@ -42,6 +42,10 @@ public class RedisProperties {
 
     private int responseCacheTtlInSeconds = 360;
 
+    private String uaiToImapCacheName = "";
+
+    private int uaiToImapCacheTtlInSeconds = 360;
+
     @PostConstruct
     public void setupAndDebug() {
 
@@ -71,6 +75,8 @@ public class RedisProperties {
                 ", pgtiouExpiryInSeconds=" + pgtiouExpiryInSeconds +
                 ", responseCacheName='" + responseCacheName + '\'' +
                 ", responseCacheTtlInSeconds=" + responseCacheTtlInSeconds +
+                ", uaiToIampCacheName='" + uaiToImapCacheName + '\'' +
+                ", uaiToIampCacheTtlInSeconds=" + uaiToImapCacheTtlInSeconds +
                 '}';
     }
 }
