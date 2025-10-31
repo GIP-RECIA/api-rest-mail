@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: "Mail REST API"
+  redis:
+    namespace: "mail-rest-api"
+  cache:
+    type: redis
+
+imap:
+  hostname: "hostname"
+  port: 143
+  debug: true # do nothing, to clean up
+  connectionTimeout: 30000
+  timeout: 30000
+  protocol: "imap"
+  messageCountToRetrieve: 0
+  topLevelAttributeKey: ""
+  escoDomainesAttributeKey: ""
+#  escoDomainesConversion :       # comment line if not used
+#    "domain.example" : "imap.domain.example"
+  folderName: "INBOX"
+  uriParamUserEtabGetEtabFromUai: ""
+
+
+app:
+  cors:
+    enable: true
+    allow-credentials: true
+    allowed-origins:
+      - "https://domain.frontent"
+      - "null"
+  conf:
+    casServiceId: ""
+    casServerUrl: ""
+    casServerLoginUrl: ""
+    casProviderKey: ""
+    casTicketCallback: ""
+    casProxyReceptorUrl: ""
+    casProxyTicketCallback: ""
+    casProxyTicketFor: ""
+    casAttributesKeyCurrentEtab: ""
+
+logging:
+  level:
+    root: DEBUG
+
+redis:
+  hostName: "hostname"
+  port: "6379"
+  userName: "appuser"
+  password: "password"
+  databaseIndex: "0"
+  pgtiouExpiryInSeconds: 150
+  pgtiouPrefix: "${spring.redis.namespace}:iou"
+  mappingPrefix: "${spring.redis.namespace}:mapping"
+  responseCacheName: "${spring.redis.namespace}:summary-cache"
+  responseCacheTtlInSeconds: 60
+
+#mock:
+#  enable: "true"
