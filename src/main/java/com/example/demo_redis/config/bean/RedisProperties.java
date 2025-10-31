@@ -46,6 +46,8 @@ public class RedisProperties {
 
     private int uaiToImapCacheTtlInSeconds = 360;
 
+    private String mappingPrefix;
+
     @PostConstruct
     public void setupAndDebug() {
 
@@ -77,6 +79,7 @@ public class RedisProperties {
                 ", responseCacheTtlInSeconds=" + responseCacheTtlInSeconds +
                 ", uaiToIampCacheName='" + uaiToImapCacheName + '\'' +
                 ", uaiToIampCacheTtlInSeconds=" + uaiToImapCacheTtlInSeconds +
+                ", mappingPrefix=" + mappingPrefix +
                 '}';
     }
 }
