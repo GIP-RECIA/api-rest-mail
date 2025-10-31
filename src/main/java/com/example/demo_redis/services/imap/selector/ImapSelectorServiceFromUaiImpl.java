@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static com.example.demo_redis.web.rest.api.TestController.getCurrentHttpRequest;
+import static com.example.demo_redis.web.rest.api.EmailController.getCurrentHttpRequest;
 
 @Slf4j
 @Service
