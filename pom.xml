@@ -157,6 +157,49 @@
                         tests/</warSourceExcludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.11</version>
+                <configuration>
+                    <header>etc/header.template</header>
+                    <properties>
+                        <owner>GIP-RECIA</owner>
+                        <website>https://www.recia.fr/</website>
+                    </properties>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>src/**/*.xml</include>
+                        <include>**/*.properties</include>
+                        <include>src/test/**</include>
+                        <include>**/*.js</include>
+                        <include>**/*.css</include>
+                    </includes>
+                    <excludes>
+                        <exclude>src/test/resources/json/**</exclude>
+                        <exclude>.mvn/**</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jasig.maven</groupId>
+                <artifactId>notice-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <configuration>
+                    <noticeTemplate>etc/NOTICE.template</noticeTemplate>
+                    <licenseMapping>
+                        <param>/etc/license-mappings.xml</param>
+                    </licenseMapping>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
