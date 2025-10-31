@@ -51,6 +51,15 @@ public class TestController {
         );
     }
 
+    public static HttpServletRequest getCurrentHttpRequest(){
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes instanceof ServletRequestAttributes) {
+            HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
+            return request;
+        }
+        return null;
+    }
+
     @GetMapping("/cas-secured")
     public ResponseEntity<MailFolderSummaryForWidget> getOkIfCas()
             throws ServletException, IOException, MessagingException {
