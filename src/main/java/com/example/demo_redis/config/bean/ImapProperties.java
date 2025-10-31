@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.Map;
 
 @ConfigurationProperties(prefix = "imap")
@@ -34,7 +35,7 @@ public class ImapProperties {
 
     private String protocol;
 
-    private Map<String, String> escoDomainesConversion;
+    private Map<String, String> escoDomainesConversion = new HashMap<>();
 
     private String folderName;
 
