@@ -15,18 +15,14 @@
  */
 package fr.recia.widget.api.apiRestMail;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.context.annotation.ComponentScan;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootApplication
-@ConfigurationPropertiesScan("com.example.demo_redis.config.bean")
-@ComponentScan
-public class DemoCasProxyApplication {
+@SpringBootTest
+class ApiRestMailApplicationTests {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoCasProxyApplication.class, args);
+	@Test
+	void contextLoads() {
 	}
 
 }
