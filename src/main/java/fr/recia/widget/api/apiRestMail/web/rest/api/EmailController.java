@@ -50,8 +50,8 @@ public class EmailController {
         return null;
     }
 
-    @GetMapping("/preview")
-    public ResponseEntity<MailFolderSummaryForWidget> getEmailPreview()
+    @GetMapping("/summary")
+    public ResponseEntity<MailFolderSummaryForWidget> getEmailSummary()
             throws IOException {
 
         // NOTE: The CasAuthenticationToken can also be obtained using

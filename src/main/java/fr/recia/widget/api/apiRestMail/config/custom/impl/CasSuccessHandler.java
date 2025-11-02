@@ -98,7 +98,7 @@ public class CasSuccessHandler extends SavedRequestAwareAuthenticationSuccessHan
 //        String serverName = request.getServerName();
 //        int serverPort = request.getServerPort();
 //        String baseUrl = "https://" + serverName + (serverPort == 80 || serverPort == 443 ? "" : ":" + serverPort);
-//        getRedirectStrategy().sendRedirect(request, response, baseUrl + servletContext.getContextPath()+"/api/email/preview");
+//        getRedirectStrategy().sendRedirect(request, response, baseUrl + servletContext.getContextPath()+"/api/email/summary");
         super.onAuthenticationSuccess(request, response, authentication);
     }
 
