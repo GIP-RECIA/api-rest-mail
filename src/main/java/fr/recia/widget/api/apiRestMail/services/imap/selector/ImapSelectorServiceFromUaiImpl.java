@@ -96,7 +96,7 @@ public class ImapSelectorServiceFromUaiImpl implements IImapSelectorService {
         String baseUrl = scheme + "://" + serverName +
                 (serverPort == 80 || serverPort == 443 ? "" : ":" + serverPort);
 
-        String uri = baseUrl + imapProperties.getUriParamUserEtabGetEtabFromUai().replace("{code}", uai);
+        String uri = (imapProperties.getUriParamUserEtabGetEtabFromUai().startsWith("/") ? baseUrl : "" ) + imapProperties.getUriParamUserEtabGetEtabFromUai().replace("{code}", uai);
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
