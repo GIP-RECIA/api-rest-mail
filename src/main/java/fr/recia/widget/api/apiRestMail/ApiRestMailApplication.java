@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ConfigurationPropertiesScan("com.example.demo_redis.config.bean")
+@ConfigurationPropertiesScan("fr.recia.widget.api.apiRestMail.config.bean")
 @ComponentScan
 public class ApiRestMailApplication {
 
