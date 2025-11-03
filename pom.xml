@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fr.recia.widget.api</groupId>
-	<artifactId>api-rest-mail</artifactId>
+	<artifactId>mail-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <name>api-rest-mail</name>
+    <name>mail-api</name>
     <packaging>war</packaging>
 	<url/>
 	<licenses>
