@@ -81,9 +81,8 @@ public  class SecurityConfig {
                 .addFilterBefore(casAuthenticationFilter(authenticationManager(casAuthenticationProvider(serviceProperties()))), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e.authenticationEntryPoint(casAuthenticationEntryPoint()))
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/test/redis").permitAll()
-                        .antMatchers("/test/session").permitAll()
-                        .antMatchers("/test/**").authenticated()
+                        .antMatchers("/health-check").permitAll()
+                        .antMatchers("/api/email/summary").authenticated()
                         .antMatchers(appConfProperties.getCasTicketCallback()).permitAll()
                         .antMatchers(appConfProperties.getCasProxyReceptorUrl()).permitAll()
                         .anyRequest().denyAll()
