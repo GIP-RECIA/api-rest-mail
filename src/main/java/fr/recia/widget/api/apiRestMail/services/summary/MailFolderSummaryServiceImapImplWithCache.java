@@ -20,6 +20,7 @@ import fr.recia.widget.api.apiRestMail.config.bean.ImapProperties;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.UserCustomImplementation;
 import fr.recia.widget.api.apiRestMail.dto.MailFolderSummaryForWidget;
 import fr.recia.widget.api.apiRestMail.dto.MessageSummaryForWidget;
+import fr.recia.widget.api.apiRestMail.exceptions.NoCurrentUAIException;
 import fr.recia.widget.api.apiRestMail.services.imap.selector.ImapSelectorServiceFromUaiImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.mail.imap.IMAPFolder;
@@ -93,13 +94,17 @@ public class MailFolderSummaryServiceImapImplWithCache extends AbstractMailFolde
     private IMAPFolder getFolder(String principal, String proxyTicket, CasAuthenticationToken token) throws MessagingException, JsonProcessingException {
 
         UserCustomImplementation userDetails = (UserCustomImplementation) token.getUserDetails();
-        String uai = userDetails.getAttributes().get(appConfProperties.getCasAttributesKeyCurrentEtab()).toString();
-        String hostname = imapSelectorServiceFromUai.getIampHostName(uai);
+        if(userDetails.getAttributes().containsKey(appConfProperties.getCasAttributesKeyCurrentEtab())){
+            String uai = userDetails.getAttributes().get(appConfProperties.getCasAttributesKeyCurrentEtab()).toString();
+            String hostname = imapSelectorServiceFromUai.getIampHostName(uai);
 
-        Session session = Session.getDefaultInstance(new Properties( ));
-        Store store =  session.getStore(imapProperties.getProtocol());
-        store.connect(hostname, imapProperties.getPort(), principal, proxyTicket);
+            Session session = Session.getDefaultInstance(new Properties( ));
+            Store store =  session.getStore(imapProperties.getProtocol());
+            store.connect(hostname, imapProperties.getPort(), principal, proxyTicket);
 
-        return (IMAPFolder) store.getFolder(imapProperties.getFolderName());
+            return (IMAPFolder) store.getFolder(imapProperties.getFolderName());
+        } else {
+            throw new NoCurrentUAIException("No UAI was found for "+principal);
+        }
     }
 }

@@ -71,7 +71,7 @@ public class ImapSelectorServiceFromUaiImpl implements IImapSelectorService {
         String value = getStringResponseFromParamUserEtab(uai);
         ParamUserEtabResponse paramUserEtabResponse = getDtoFromJson(value);
         String[] escoDomaines = getEscoDomainesFromDto(paramUserEtabResponse);
-        String result = getIampHostnameFromEscoDomaines(escoDomaines);
+        String result = getImapHostnameFromEscoDomaines(escoDomaines);
 
         try {
             cache.put(uai, result);
@@ -99,7 +99,7 @@ public class ImapSelectorServiceFromUaiImpl implements IImapSelectorService {
         String uri = (imapProperties.getUriParamUserEtabGetEtabFromUai().startsWith("/") ? baseUrl : "" ) + imapProperties.getUriParamUserEtabGetEtabFromUai().replace("{code}", uai);
 
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<>(requestHeaders);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity,String.class);
@@ -107,11 +107,10 @@ public class ImapSelectorServiceFromUaiImpl implements IImapSelectorService {
     }
 
 
-    String getIampHostnameFromEscoDomaines(String[] escoDomaines){
+    String getImapHostnameFromEscoDomaines(String[] escoDomaines){
         //Filter to keep only escoDomaine value equals to a key in the conversion map
         String[] filteredEscoDomaines = (String[]) Arrays.stream(escoDomaines)
                 .filter(x -> imapProperties.getEscoDomainesConversion().containsKey(x)).toArray(String[]::new);
-
 
 
        if(filteredEscoDomaines.length == 0){

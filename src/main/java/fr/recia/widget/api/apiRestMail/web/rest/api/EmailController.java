@@ -28,9 +28,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -51,19 +49,14 @@ public class EmailController {
     }
 
     @GetMapping("/summary")
-    public ResponseEntity<MailFolderSummaryForWidget> getEmailSummary()
-            throws IOException {
-
+    public ResponseEntity<MailFolderSummaryForWidget> getEmailSummary() {
         // NOTE: The CasAuthenticationToken can also be obtained using
         // SecurityContextHolder.getContext().getAuthentication()
         log.info("SecurityContextHolder.getContext().getAuthentication() is {}", SecurityContextHolder.getContext().getAuthentication());
         try {
-             return ResponseEntity.ok(
-                 mailFolderSummaryService.getMailFolderSummaryForWidget()
-             );
-
-        } catch (MessagingException e) {
-            log.error("MessagingException", e);
+             return ResponseEntity.ok(mailFolderSummaryService.getMailFolderSummaryForWidget());
+        } catch (Exception e) {
+            log.error("An exception was thrown when trying to get mails", e);
             return ResponseEntity.internalServerError().body(null);
         }
     }
