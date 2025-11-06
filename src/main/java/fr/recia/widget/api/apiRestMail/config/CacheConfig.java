@@ -34,9 +34,6 @@ import java.util.Map;
 @Configuration
 public class CacheConfig {
 
-
-
-
     @Autowired
     RedisProperties redisProperties;
 
@@ -45,15 +42,11 @@ public class CacheConfig {
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
         // responses cache
         cacheConfigurations.put(redisProperties.getResponseCacheName(), RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
-                )
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .entryTtl(Duration.ofSeconds(redisProperties.getResponseCacheTtlInSeconds())));
         // uai -> hostname cache
         cacheConfigurations.put(redisProperties.getUaiToImapCacheName(), RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
-                )
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .entryTtl(Duration.ofSeconds(redisProperties.getUaiToImapCacheTtlInSeconds())));
         return RedisCacheManager.builder(connectionFactory)
                 .withInitialCacheConfigurations(cacheConfigurations)

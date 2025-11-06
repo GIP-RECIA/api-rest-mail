@@ -89,9 +89,9 @@ public class ImapSelectorServiceFromUaiImpl implements IImapSelectorService {
 
         assert request != null;
 
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int serverPort = request.getServerPort();
+        final String scheme = request.getScheme();
+        final String serverName = request.getServerName();
+        final int serverPort = request.getServerPort();
 
         String baseUrl = scheme + "://" + serverName +
                 (serverPort == 80 || serverPort == 443 ? "" : ":" + serverPort);

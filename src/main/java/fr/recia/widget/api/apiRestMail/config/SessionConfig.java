@@ -33,7 +33,6 @@ public class SessionConfig {
     @Autowired
     private RedisProperties redisProperties;
 
-
     @Bean
     // Fix exception at launch where redis would require an unnecessary permission
     public static ConfigureRedisAction configureRedisAction() {

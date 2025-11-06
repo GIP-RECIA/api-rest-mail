@@ -120,6 +120,7 @@ public  class SecurityConfig {
             return new UserCustomImplementation(username, "", List.of(new SimpleGrantedAuthority("ROLE_USER")), attributes);
         };
     }
+
     @Bean
     public CasAuthenticationProvider casAuthenticationProvider(ServiceProperties serviceProperties) {
         CasAuthenticationProvider provider = new CasAuthenticationProvider();

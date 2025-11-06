@@ -66,9 +66,6 @@ public class RedisProperties {
     @PostConstruct
     public void setupAndDebug() {
 
-
-
-
         if(pgtiouExpiryInSeconds <= 0){
             pgtiouExpiryInSeconds = 10;
             log.warn("pgtiouExpiryInSeconds value too low, defaulted to 10");

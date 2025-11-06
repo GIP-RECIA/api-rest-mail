@@ -50,7 +50,7 @@ public class ProxyGrantingTicketRedisImpl implements ProxyGrantingTicketStorage 
             return null;
         }
 
-        final var proxyGrantingTicket = getFromRedis(proxyGrantingTicketIou);
+        final String proxyGrantingTicket = getFromRedis(proxyGrantingTicketIou);
 
         if (proxyGrantingTicket == null) {
             log.debug("No Proxy Ticket found for [{}].", proxyGrantingTicketIou);

@@ -42,8 +42,7 @@ public class EmailController {
     public static HttpServletRequest getCurrentHttpRequest(){
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes instanceof ServletRequestAttributes) {
-            HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-            return request;
+            return ((ServletRequestAttributes)requestAttributes).getRequest();
         }
         return null;
     }
