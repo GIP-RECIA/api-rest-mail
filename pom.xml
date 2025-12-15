@@ -12,6 +12,7 @@
 	<artifactId>mail-api</artifactId>
 	<version>0.0.1</version>
     <name>mail-api</name>
+    <inceptionYear>2025</inceptionYear>
     <packaging>war</packaging>
 	<url/>
 	<licenses>
