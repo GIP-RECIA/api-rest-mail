@@ -17,6 +17,9 @@ package fr.recia.widget.api.apiRestMail.config;
 
 import fr.recia.widget.api.apiRestMail.config.bean.AppConfProperties;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.CasSuccessHandler;
+import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomAuthenticationProvider;
+import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomCas20ProxyTicketValidator;
+import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomCasAuthenticationEntryPoint;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomSessionMappingStorage;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.UserCustomImplementation;
 import fr.recia.widget.api.apiRestMail.services.ProxyGrantingTicketRedisImpl;
@@ -32,7 +35,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.cas.ServiceProperties;
 import org.springframework.security.cas.authentication.CasAssertionAuthenticationToken;
-import org.springframework.security.cas.authentication.CasAuthenticationProvider;
 import org.springframework.security.cas.web.CasAuthenticationEntryPoint;
 import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -77,8 +79,8 @@ public  class SecurityConfig {
                 .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authenticationProvider(casAuthenticationProvider(serviceProperties()))
-                .addFilterBefore(casAuthenticationFilter(authenticationManager(casAuthenticationProvider(serviceProperties()))), UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(customAuthProvider(serviceProperties()))
+                .addFilterBefore(casAuthenticationFilter(authenticationManager(customAuthProvider(serviceProperties()))), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e.authenticationEntryPoint(casAuthenticationEntryPoint()))
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/health-check").permitAll()
@@ -91,7 +93,7 @@ public  class SecurityConfig {
     }
 
     public CasAuthenticationEntryPoint casAuthenticationEntryPoint() {
-        CasAuthenticationEntryPoint casAuthenticationEntryPoint = new CasAuthenticationEntryPoint();
+        CasAuthenticationEntryPoint casAuthenticationEntryPoint = new CustomCasAuthenticationEntryPoint(appConfProperties);
         casAuthenticationEntryPoint.setLoginUrl(this.appConfProperties.getCasServerLoginUrl()); //old concatenation
         casAuthenticationEntryPoint.setServiceProperties(serviceProperties());
         return casAuthenticationEntryPoint;
@@ -122,11 +124,11 @@ public  class SecurityConfig {
     }
 
     @Bean
-    public CasAuthenticationProvider casAuthenticationProvider(ServiceProperties serviceProperties) {
-        CasAuthenticationProvider provider = new CasAuthenticationProvider();
+    public CustomAuthenticationProvider customAuthProvider(ServiceProperties serviceProperties) {
+        CustomAuthenticationProvider provider = new CustomAuthenticationProvider(appConfProperties);
         provider.setServiceProperties(serviceProperties);
 
-        Cas20ProxyTicketValidator validator = new Cas20ProxyTicketValidator(appConfProperties.getCasServerUrl());
+        Cas20ProxyTicketValidator validator = new CustomCas20ProxyTicketValidator(appConfProperties.getCasServerUrl());
         validator.setProxyCallbackUrl(appConfProperties.getCasProxyTicketCallback());
         validator.setProxyGrantingTicketStorage(pgtStorage());
 
@@ -137,8 +139,8 @@ public  class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(CasAuthenticationProvider casAuthenticationProvider) {
-        return new ProviderManager(casAuthenticationProvider);
+    public AuthenticationManager authenticationManager(CustomAuthenticationProvider customAuthProvider) {
+        return new ProviderManager(customAuthProvider);
     }
 
     @Bean
