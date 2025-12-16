@@ -23,6 +23,8 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @Component
 public class CustomSessionMappingStorage {
@@ -42,7 +44,7 @@ public class CustomSessionMappingStorage {
 
     public void setSessionTicketSessionIdPair(String sessionTicket, String sessionId) {
         log.trace("[CustomSessionMappingStorage] setSessionTicketSessionIdPair {} {}", sessionTicket, sessionId);
-        redisTemplate.opsForValue().set(prefixedKey(sessionTicket), sessionId);
+        redisTemplate.opsForValue().set(prefixedKey(sessionTicket), sessionId,8, TimeUnit.HOURS);
     }
 
     public String getSessionIdFromSessionTicket(String sessionTicket) {
