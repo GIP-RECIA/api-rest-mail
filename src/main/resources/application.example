@@ -6,6 +6,12 @@ spring:
   cache:
     type: redis
 
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: none
+
 imap:
   hostname: "hostname"
   port: 143
