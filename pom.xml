@@ -16,7 +16,10 @@
     <packaging>war</packaging>
 	<url/>
 	<licenses>
-		<license/>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
 	</licenses>
 	<developers>
 		<developer/>
