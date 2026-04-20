@@ -40,13 +40,29 @@
             <url>https://nexus.recia.dev/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://nexus.recia.dev/repository/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 	<dependencies>
-
+        <dependency>
+            <groupId>fr.recia</groupId>
+            <artifactId>redis-session-cleanup-lib</artifactId>
+            <version>0.0.2</version>
+        </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>

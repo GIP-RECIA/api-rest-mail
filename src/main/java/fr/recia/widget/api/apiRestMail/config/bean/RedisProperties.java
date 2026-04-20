@@ -63,6 +63,9 @@ public class RedisProperties {
 
     private String mappingPrefix;
 
+    private String indexPrefix;
+
+
     @PostConstruct
     public void setupAndDebug() {
 
@@ -89,9 +92,10 @@ public class RedisProperties {
                 ", pgtiouExpiryInSeconds=" + pgtiouExpiryInSeconds +
                 ", responseCacheName='" + responseCacheName + '\'' +
                 ", responseCacheTtlInSeconds=" + responseCacheTtlInSeconds +
-                ", uaiToIampCacheName='" + uaiToImapCacheName + '\'' +
-                ", uaiToIampCacheTtlInSeconds=" + uaiToImapCacheTtlInSeconds +
-                ", mappingPrefix=" + mappingPrefix +
+                ", uaiToImapCacheName='" + uaiToImapCacheName + '\'' +
+                ", uaiToImapCacheTtlInSeconds=" + uaiToImapCacheTtlInSeconds +
+                ", mappingPrefix='" + mappingPrefix + '\'' +
+                ", indexPrefix='" + indexPrefix + '\'' +
                 '}';
     }
 }
