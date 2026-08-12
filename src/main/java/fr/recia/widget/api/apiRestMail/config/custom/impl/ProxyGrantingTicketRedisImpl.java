@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.widget.api.apiRestMail.services;
+package fr.recia.widget.api.apiRestMail.config.custom.impl;
 
 import fr.recia.widget.api.apiRestMail.config.bean.RedisProperties;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apereo.cas.client.proxy.ProxyGrantingTicketStorage;
 import org.apereo.cas.client.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;

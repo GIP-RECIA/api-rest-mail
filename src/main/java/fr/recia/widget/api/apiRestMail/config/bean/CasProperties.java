@@ -13,19 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.widget.api.apiRestMail.dto;
+package fr.recia.widget.api.apiRestMail.config.bean;
 
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
+@ConfigurationProperties(prefix = "app.cas")
 @Data
+@Validated
+@Slf4j
 @AllArgsConstructor
-@NoArgsConstructor // used when serializing from cache
-public class MessageSummaryForWidget {
+@NoArgsConstructor
+public class CasProperties {
 
-   String subject;
-   long id;
-   boolean isRead;
+    List<String> authorizedDomains;
 
+    @PostConstruct
+    void init(){
+        log.info(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "CasProperties{" +
+                "authorizedDomains=" + authorizedDomains +
+                '}';
+    }
 }

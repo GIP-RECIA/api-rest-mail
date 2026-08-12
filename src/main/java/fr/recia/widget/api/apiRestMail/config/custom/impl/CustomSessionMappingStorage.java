@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
+import org.springframework.session.data.redis.RedisSessionRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -33,7 +34,7 @@ public class CustomSessionMappingStorage {
     RedisProperties redisProperties;
 
     @Autowired
-    private FindByIndexNameSessionRepository<? extends Session> sessionRepository;
+    private RedisSessionRepository sessionRepository;
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;

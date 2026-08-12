@@ -13,19 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package fr.recia.widget.api.apiRestMail.dto;
+package fr.recia.widget.api.apiRestMail.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor // used when serializing from cache
-public class MessageSummaryForWidget {
-
-   String subject;
-   long id;
-   boolean isRead;
-
+public class InvalidDomainException extends RuntimeException {
+    public InvalidDomainException(String message) {
+        super(message);
+    }
 }

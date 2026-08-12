@@ -16,6 +16,7 @@
 package fr.recia.widget.api.apiRestMail.config.bean;
 
 
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.PostConstruct;
 
 @ConfigurationProperties(prefix = "app.conf")
 @Data

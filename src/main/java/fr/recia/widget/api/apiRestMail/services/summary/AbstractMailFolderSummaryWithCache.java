@@ -18,6 +18,7 @@ package fr.recia.widget.api.apiRestMail.services.summary;
 import fr.recia.widget.api.apiRestMail.config.bean.RedisProperties;
 import fr.recia.widget.api.apiRestMail.dto.MailFolderSummaryForWidget;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -25,7 +26,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.security.cas.authentication.CasAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.mail.MessagingException;
 import java.util.Optional;
 
 @Slf4j

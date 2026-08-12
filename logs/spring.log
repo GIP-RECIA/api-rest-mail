@@ -1,0 +1,102 @@
+2025-12-15 10:24:08.688  INFO 27384 --- [main] f.r.w.a.a.ApiRestMailApplication         : Starting ApiRestMailApplication using Java 17.0.11 on ewann-roux-HP-EliteBook-655-15-6-inch-G10-Notebook-PC with PID 27384 (/home/ewann-roux/api-rest-mail/target/classes started by ewann-roux in /home/ewann-roux/api-rest-mail)
+2025-12-15 10:24:08.697  INFO 27384 --- [main] f.r.w.a.a.ApiRestMailApplication         : The following 2 profiles are active: "dev", "mock"
+2025-12-15 10:24:09.104  INFO 27384 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-15 10:24:09.106  INFO 27384 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-15 10:24:09.125  INFO 27384 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+2025-12-15 10:24:09.430  INFO 27384 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2025-12-15 10:24:09.436  INFO 27384 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-15 10:24:09.436  INFO 27384 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-12-15 10:24:09.505  INFO 27384 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/ewann]  : Initializing Spring embedded WebApplicationContext
+2025-12-15 10:24:09.505  INFO 27384 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 768 ms
+2025-12-15 10:24:09.548  INFO 27384 --- [main] f.r.w.a.a.config.bean.RedisProperties    : RedisProperties RedisProperties{hostName='localhost', port=6379, userName='appuser', password='8VJyB67pfEZsGAMpxuS0taG8o', databaseIndex=0, pgtiouPrefix='proxy-cas-app:iou', pgtiouExpiryInSeconds=150, responseCacheName='proxy-cas-app:summary-cache', responseCacheTtlInSeconds=60, uaiToIampCacheName='', uaiToIampCacheTtlInSeconds=360, mappingPrefix=null}
+2025-12-15 10:24:09.571  INFO 27384 --- [main] f.r.w.a.a.config.SessionConfig           : Load LettuceConnectionFactory
+2025-12-15 10:24:09.853  INFO 27384 --- [main] f.r.w.a.a.config.ServiceConfig           : create imap impl bean for IMailFolderSummaryService
+2025-12-15 10:24:09.905  INFO 27384 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5bb8e6fc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2726a511, org.springframework.security.web.context.SecurityContextPersistenceFilter@23bd0c81, org.springframework.security.web.header.HeaderWriterFilter@51888019, org.springframework.web.filter.CorsFilter@72c9ebfa, org.springframework.security.web.authentication.logout.LogoutFilter@3a3f96ab, fr.recia.widget.api.apiRestMail.config.SecurityConfig$1@bc09d57, org.springframework.security.cas.web.CasAuthenticationFilter@22d8f4ed, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@544e3679, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3820cfe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@686cf8ad, org.springframework.security.web.session.SessionManagementFilter@19b5214b, org.springframework.security.web.access.ExceptionTranslationFilter@6c835217, org.springframework.security.web.access.intercept.AuthorizationFilter@4137aab0]
+2025-12-15 10:24:10.133  INFO 27384 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path '/ewann'
+2025-12-15 10:24:10.294  WARN 27384 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'springSessionRedisMessageListenerContainer'; nested exception is org.springframework.data.redis.listener.adapter.RedisListenerExecutionFailedException: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379; nested exception is org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+2025-12-15 10:24:10.410  INFO 27384 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-12-15 10:24:10.418  INFO 27384 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-12-15 10:24:10.430 ERROR 27384 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'springSessionRedisMessageListenerContainer'; nested exception is org.springframework.data.redis.listener.adapter.RedisListenerExecutionFailedException: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379; nested exception is org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:182) ~[spring-context-5.3.31.jar:5.3.31]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54) ~[spring-context-5.3.31.jar:5.3.31]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:357) ~[spring-context-5.3.31.jar:5.3.31]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:156) ~[spring-context-5.3.31.jar:5.3.31]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:124) ~[spring-context-5.3.31.jar:5.3.31]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:946) ~[spring-context-5.3.31.jar:5.3.31]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:594) ~[spring-context-5.3.31.jar:5.3.31]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.18.jar:2.7.18]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732) ~[spring-boot-2.7.18.jar:2.7.18]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:409) ~[spring-boot-2.7.18.jar:2.7.18]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.7.18.jar:2.7.18]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300) ~[spring-boot-2.7.18.jar:2.7.18]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289) ~[spring-boot-2.7.18.jar:2.7.18]
+	at fr.recia.widget.api.apiRestMail.ApiRestMailApplication.main(ApiRestMailApplication.java:40) ~[classes/:na]
+Caused by: org.springframework.data.redis.listener.adapter.RedisListenerExecutionFailedException: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379; nested exception is org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+	at org.springframework.data.redis.listener.RedisMessageListenerContainer.lazyListen(RedisMessageListenerContainer.java:275) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.listener.RedisMessageListenerContainer.start(RedisMessageListenerContainer.java:249) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:179) ~[spring-context-5.3.31.jar:5.3.31]
+	... 14 common frames omitted
+Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.translateException(LettuceConnectionFactory.java:1689) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1597) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:1383) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:1366) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:1093) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:421) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.listener.RedisMessageListenerContainer$Subscriber.initialize(RedisMessageListenerContainer.java:1183) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.listener.RedisMessageListenerContainer.doSubscribe(RedisMessageListenerContainer.java:318) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.listener.RedisMessageListenerContainer.lazyListen(RedisMessageListenerContainer.java:295) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.listener.RedisMessageListenerContainer.lazyListen(RedisMessageListenerContainer.java:265) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	... 16 common frames omitted
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to localhost/<unresolved>:6379
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:78) ~[lettuce-core-6.1.10.RELEASE.jar:6.1.10.RELEASE]
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:56) ~[lettuce-core-6.1.10.RELEASE.jar:6.1.10.RELEASE]
+	at io.lettuce.core.AbstractRedisClient.getConnection(AbstractRedisClient.java:330) ~[lettuce-core-6.1.10.RELEASE.jar:6.1.10.RELEASE]
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:216) ~[lettuce-core-6.1.10.RELEASE.jar:6.1.10.RELEASE]
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.lambda$getConnection$1(StandaloneConnectionProvider.java:115) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:115) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1595) ~[spring-data-redis-2.7.18.jar:2.7.18]
+	... 24 common frames omitted
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connexion refusée: localhost/127.0.0.1:6379
+Caused by: java.net.ConnectException: Connexion refusée
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.101.Final.jar:4.1.101.Final]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2025-12-15 10:25:33.765  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : Starting ApiRestMailApplication using Java 17.0.11 on ewann-roux-HP-EliteBook-655-15-6-inch-G10-Notebook-PC with PID 29236 (/home/ewann-roux/api-rest-mail/target/classes started by ewann-roux in /home/ewann-roux/api-rest-mail)
+2025-12-15 10:25:33.766  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : The following 2 profiles are active: "dev", "mock"
+2025-12-15 10:25:34.126  INFO 29236 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-15 10:25:34.127  INFO 29236 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-15 10:25:34.148  INFO 29236 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+2025-12-15 10:25:34.491  INFO 29236 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8090 (http)
+2025-12-15 10:25:34.499  INFO 29236 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-15 10:25:34.499  INFO 29236 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-12-15 10:25:34.571  INFO 29236 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/ewann]  : Initializing Spring embedded WebApplicationContext
+2025-12-15 10:25:34.571  INFO 29236 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 772 ms
+2025-12-15 10:25:34.601  INFO 29236 --- [main] f.r.w.a.a.config.bean.RedisProperties    : RedisProperties RedisProperties{hostName='localhost', port=6379, userName='appuser', password='8VJyB67pfEZsGAMpxuS0taG8o', databaseIndex=0, pgtiouPrefix='proxy-cas-app:iou', pgtiouExpiryInSeconds=150, responseCacheName='proxy-cas-app:summary-cache', responseCacheTtlInSeconds=60, uaiToIampCacheName='', uaiToIampCacheTtlInSeconds=360, mappingPrefix=null}
+2025-12-15 10:25:34.631  INFO 29236 --- [main] f.r.w.a.a.config.SessionConfig           : Load LettuceConnectionFactory
+2025-12-15 10:25:34.935  INFO 29236 --- [main] f.r.w.a.a.config.ServiceConfig           : create imap impl bean for IMailFolderSummaryService
+2025-12-15 10:25:34.994  INFO 29236 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2726a511, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72c9ebfa, org.springframework.security.web.context.SecurityContextPersistenceFilter@1332dec4, org.springframework.security.web.header.HeaderWriterFilter@6f50d55c, org.springframework.web.filter.CorsFilter@686cf8ad, org.springframework.security.web.authentication.logout.LogoutFilter@4def7d36, fr.recia.widget.api.apiRestMail.config.SecurityConfig$1@113ee1ce, org.springframework.security.cas.web.CasAuthenticationFilter@798deee8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6889f56f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2407a36c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@747f6c5a, org.springframework.security.web.session.SessionManagementFilter@5fb3111a, org.springframework.security.web.access.ExceptionTranslationFilter@4584304, org.springframework.security.web.access.intercept.AuthorizationFilter@1df9186f]
+2025-12-15 10:25:35.227  INFO 29236 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8090 (http) with context path '/ewann'
+2025-12-15 10:25:35.464  INFO 29236 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-15 10:25:35.471  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : Started ApiRestMailApplication in 1.979 seconds (JVM running for 2.19)
+2025-12-15 10:25:35.473  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : Hostname 127.0.1.1
+2025-12-15 10:25:35.473  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : Hostname ewann-roux-HP-EliteBook-655-15-6-inch-G10-Notebook-PC
+2025-12-15 10:25:35.474  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : Hostname 127.0.0.1
+2025-12-15 10:25:35.474  INFO 29236 --- [main] f.r.w.a.a.ApiRestMailApplication         : Hostname localhost

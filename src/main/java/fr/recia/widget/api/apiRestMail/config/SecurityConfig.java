@@ -16,6 +16,7 @@
 package fr.recia.widget.api.apiRestMail.config;
 
 import fr.recia.widget.api.apiRestMail.config.bean.AppConfProperties;
+import fr.recia.widget.api.apiRestMail.config.bean.CasProperties;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.CasSuccessHandler;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomAuthenticationProvider;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomCas20ProxyTicketValidator;
@@ -23,11 +24,16 @@ import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomCasAuthenticatio
 import fr.recia.widget.api.apiRestMail.config.custom.impl.CustomSessionMappingStorage;
 import fr.recia.widget.api.apiRestMail.config.custom.impl.UserCustomImplementation;
 import fr.recia.widget.api.apiRestMail.services.ProxyGrantingTicketRedisImpl;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage;
-import org.jasig.cas.client.session.SingleSignOutFilter;
-import org.jasig.cas.client.validation.Assertion;
-import org.jasig.cas.client.validation.Cas20ProxyTicketValidator;
+import org.apereo.cas.client.proxy.ProxyGrantingTicketStorage;
+import org.apereo.cas.client.session.SingleSignOutFilter;
+import org.apereo.cas.client.validation.Assertion;
+import org.apereo.cas.client.validation.Cas20ProxyTicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,11 +52,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,9 @@ public  class SecurityConfig {
 
     @Autowired
     AppConfProperties appConfProperties;
+
+    @Autowired
+    CasProperties casProperties;
 
     @Autowired
     CorsConfigurationSource corsConfigurationSource;
@@ -83,17 +87,17 @@ public  class SecurityConfig {
                 .addFilterBefore(casAuthenticationFilter(authenticationManager(customAuthProvider(serviceProperties()))), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e.authenticationEntryPoint(casAuthenticationEntryPoint()))
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/health-check").permitAll()
-                        .antMatchers("/api/email/summary").authenticated()
-                        .antMatchers(appConfProperties.getCasTicketCallback()).permitAll()
-                        .antMatchers(appConfProperties.getCasProxyReceptorUrl()).permitAll()
+                        .requestMatchers("/health-check").permitAll()
+                        .requestMatchers("/api/email/summary").authenticated()
+                        .requestMatchers(appConfProperties.getCasTicketCallback()).permitAll()
+                        .requestMatchers(appConfProperties.getCasProxyReceptorUrl()).permitAll()
                         .anyRequest().denyAll()
                 );
         return http.build();
     }
 
     public CasAuthenticationEntryPoint casAuthenticationEntryPoint() {
-        CasAuthenticationEntryPoint casAuthenticationEntryPoint = new CustomCasAuthenticationEntryPoint(appConfProperties);
+        CasAuthenticationEntryPoint casAuthenticationEntryPoint = new CustomCasAuthenticationEntryPoint(appConfProperties, casProperties);
         casAuthenticationEntryPoint.setLoginUrl(this.appConfProperties.getCasServerLoginUrl()); //old concatenation
         casAuthenticationEntryPoint.setServiceProperties(serviceProperties());
         return casAuthenticationEntryPoint;
@@ -128,7 +132,7 @@ public  class SecurityConfig {
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider(appConfProperties);
         provider.setServiceProperties(serviceProperties);
 
-        Cas20ProxyTicketValidator validator = new CustomCas20ProxyTicketValidator(appConfProperties.getCasServerUrl());
+        Cas20ProxyTicketValidator validator = new CustomCas20ProxyTicketValidator(appConfProperties.getCasServerUrl(), casProperties);
         validator.setProxyCallbackUrl(appConfProperties.getCasProxyTicketCallback());
         validator.setProxyGrantingTicketStorage(pgtStorage());
 
@@ -161,8 +165,8 @@ public  class SecurityConfig {
     public Filter singleSignOutFilter() {
         SingleSignOutFilter delegate = new SingleSignOutFilter();
         delegate.setIgnoreInitConfiguration(true);
-        delegate.setArtifactParameterName("ticket");
-        delegate.setLogoutParameterName("logoutRequest");
+        SingleSignOutFilter.setArtifactParameterName("ticket");
+        SingleSignOutFilter.setLogoutParameterName("logoutRequest");
 
         return new OncePerRequestFilter() {
             @Override

@@ -17,6 +17,7 @@ package fr.recia.widget.api.apiRestMail.web.rest.api;
 
 import fr.recia.widget.api.apiRestMail.dto.MailFolderSummaryForWidget;
 import fr.recia.widget.api.apiRestMail.services.summary.IMailFolderSummaryService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 @Slf4j
 @RestController
