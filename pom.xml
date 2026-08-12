@@ -40,28 +40,10 @@
             <url>https://nexus.recia.dev/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-    <repositories>
-        <repository>
-            <id>recia</id>
-            <url>https://nexus.recia.dev/repository/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
     <properties>
         <java.version>25</java.version>
     </properties>
 	<dependencies>
-        <dependency>
-            <groupId>fr.recia</groupId>
-            <artifactId>redis-session-cleanup-lib</artifactId>
-            <version>0.0.2</version>
-        </dependency>
         <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
