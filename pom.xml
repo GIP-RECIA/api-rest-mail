@@ -24,12 +24,12 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/GIP-RECIA/api-rest-mail.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/GIP-RECIA/api-rest-mail.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/GIP-RECIA/api-rest-mail.git</url>
+    </scm>
     <distributionManagement>
         <repository>
             <id>esco-releases</id>
