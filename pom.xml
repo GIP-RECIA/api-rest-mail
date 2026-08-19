@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>fr.recia.widget.api</groupId>
 	<artifactId>mail-api</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
     <name>mail-api</name>
     <inceptionYear>2025</inceptionYear>
     <packaging>war</packaging>
@@ -27,7 +27,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/GIP-RECIA/api-rest-mail.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/GIP-RECIA/api-rest-mail.git</developerConnection>
-        <tag>1.0.0</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/GIP-RECIA/api-rest-mail.git</url>
     </scm>
     <distributionManagement>
