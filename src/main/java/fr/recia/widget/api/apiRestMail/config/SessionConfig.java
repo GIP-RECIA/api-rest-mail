@@ -24,6 +24,8 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
 @Slf4j
 @Configuration
@@ -32,6 +34,14 @@ public class SessionConfig {
 
     @Autowired
     private RedisProperties redisProperties;
+
+    @Bean
+    public CookieSerializer cookieSerializer() {
+        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setSameSite("None");
+        serializer.setUseSecureCookie(true);
+        return serializer;
+    }
 
     @Bean
     // Fix exception at launch where redis would require an unnecessary permission
